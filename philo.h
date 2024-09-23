@@ -25,38 +25,44 @@
 # include <string.h>
 # include <pthread.h>
 
+typedef struct s_data
+{
+	int				philo_nbr;
+	int				meal_nbr;
+	uint64_t		last_meal;
+	pthread_t		thread;
+	pthread_mutex_t	l_fork;
+	pthread_mutex_t	*r_fork;
+	struct s_vars	*vars;
+}	t_data;
 
 typedef struct s_vars
 {
-	int			n_philos;
-	int			t_2eat;
-	int			t_2sleep;
-	int			t_2die;
-	int			max_rounds;
-	bool	all_eat;
-	t_data			philosophers[200];
-	uint64_t		start_time;
-//	uint64_t		current_time;
+	int					n_philos;
+	int					t_2eat;
+	int					t_2sleep;
+	int					t_2die;
+	int					max_rounds;
+	int					how_many_r_full;
+	bool				philo_dead;
+	bool				philos_full;
+	struct s_data		philosophers[200];
+	uint64_t			start_time;
 	pthread_mutex_t		sync;
 }	t_vars;
 
-typedef struct s_data
-{
-	int		philo_nbr;
-	size_t	last_meal;
-	bool	dead;
-	bool	l_fork;
-	bool	r_fork;
-	pthread_mutex_t		thread;
-	pthread_mutex_t		l_fork;
-	pthread_mutex_t		r_fork;
-}	t_data;
-
-int	ft_atoi(const char *nptr);
-size_t	ft_time_ms(void);
-void	init_philo(t_vars *philo, int ac, char **av);
-void	philosophing(t_vars *philo);
-void	ft_usleep(int time);
-	
+/*basics.c*/
+int			ft_atoi(const char *nptr);
+uint64_t	ft_time_ms(void);
+void		ft_usleep(uint64_t time);
+bool		ft_full_or_death(t_data *philo_x);
+/*init.c*/
+void		init_philo(t_vars *philo, int ac, char **av);
+/*philosophing.c*/
+void		*philosophing(void *philo);
+bool		ft_checker_philos(t_vars *philo, int *x);
+/*void	philos_start(t_vars *philo);*/
+void		*proutine(void *data);
+uint64_t	ft_now_ms(void);
 
 #endif

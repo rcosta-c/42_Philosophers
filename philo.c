@@ -12,44 +12,95 @@
 
 #include "philo.h"
 
-int main(int ac, char **av)
+//void	create_check_join(t_vars philo);
+//void	detach_destroy(t_vars philo);
+
+int	main(int ac, char **av)
 {
 	t_vars	philo;
-	int		x;
-	
+	int		i;
+	int		nbr;
+
 	init_philo(&philo, ac, av);
-//create_check_join()FUNCAO A CONSTRUIR PARA ALBERGAR "pthread_create e pthread_join"
-//								albergar tambem o check_philos()
-	x = 0;
-	while(x < philo.n_philos)
+	i = 0;
+	nbr = philo.n_philos;
+	while (i < nbr)
 	{
-		pthread_create(&philo.philosophers[x].thread, NULL, philosophing, &philo.philosophers[x]);
-		x++;
+		pthread_create(&philo.philosophers[i].thread, NULL, philosophing, \
+			&philo.philosophers[i]);
+		i++;
 	}
-	x = 0;
-	while (x < philo.n_philos)
+	i = 0;
+	while (i++ < nbr && ft_checker_philos(&philo, &i) == false)
+		i = i + 0;
+	i = 0;
+	while (i < nbr)
 	{
-		checker_philos(&philo, &x);		
+		pthread_join(philo.philosophers[i].thread, NULL);
+		i++;
 	}
-	x = 0;
-	while (x < philo.n_philos)
+	i = 0;
+	while (i < nbr)
 	{
-		pthread_join( , );
-		x++;
+		pthread_mutex_destroy(&philo.philosophers[i].l_fork);
+		i++;
 	}
-//				create_check_join()    ATE AQUI!!!
-//	detach_destroy()FUNCAO PARA ALBERGAR "pthread_detach e pthread_mutex_destroy"
-	x = 0;
-	while (x < philo.n_philos)
-	{
-		pthread_detach(&philo);
-		x++;
-	}
-	x = 0;
-	while (x < philo.n_philos)
-	{
-		pthread_mutex_destroy(&philo);
-	}	
-//				detach_destroy()    ATE AQUI!!!
-	return (0);
+	exit(EXIT_SUCCESS);
 }
+/*
+void	create_check_join(t_vars philo)
+{
+	int	x;
+
+	x = 0;
+		printf("\n\nAAAAAAAAAAAAAAAAAAAA-estouaqui\n\n");
+
+	while (x < philo.n_philos)
+	{
+		pthread_create(&philo.philosophers[x].thread, NULL, philosophing, \
+			&philo.philosophers[x]);
+		x++;
+	}
+	x = 0;
+			printf("\n\nVVVVVVVVVV-estouaqui\n\n");
+
+	while (x++ < philo.n_philos && ft_checker_philos(&philo, &x) == true)
+	{
+		x = x + 0;
+	}
+	//while (x < philo.n_philos)
+	//{
+	//	if (ft_checker_philos(&philo, &x) == true)
+	//		break ;
+	//	x++;
+	//}
+	x = 0;		
+	printf("\n\nZZZZZZZZZZZZ-estouaqui\n\n");
+
+	while (x < philo.n_philos)
+	{
+		printf("\n\nZZZZ312832138172831783178371ZZZZZZZZ-estouaqui\n\n");
+		pthread_join(philo.philosophers[x].thread, NULL);
+		x++;
+	}
+	printf("\n\nDEEESSSSTROOYYYYYYY-estouaqui\n\n");
+	detach_destroy(philo);
+	printf("\n\nDEEESSSSTROOYYnDEEESSSSTROOYYYYYYYYYYYY-estouaqui\n\n");
+}
+
+void	detach_destroy(t_vars philo)
+{
+	int	x;
+
+	x = 0;
+	while (x < philo.n_philos)
+	{
+		pthread_detach(philo.philosophers[x].thread);
+		x++;
+	}
+	x = 0;
+	while (x < philo.n_philos)
+	{
+		pthread_mutex_destroy(&philo.philosophers[x].l_fork);
+	}
+}*/
