@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   basics.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosta-c <rcosta-c@student.42porto.com>     +#+  +:+       +#+        */
+/*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:14 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/19 08:06:15 by rosta-c          ###   ########.fr       */
+/*   Updated: 2024/09/24 09:50:42 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	ft_atoi(const char *nptr)
 {
-	int	x;
+	int			x;
 	long int	reslt;
-	int	signal;
+	int			signal;
 
 	x = 0;
 	signal = 1;
@@ -57,8 +57,7 @@ void	ft_usleep(uint64_t time)
 		usleep(150);
 	}
 }
-
-bool	ft_full_or_death(t_data *philo_x)
+bool	ft_checker_full_death(t_data *philo_x)
 {
 	pthread_mutex_lock(&philo_x->vars->sync);
 	if (philo_x->vars->philos_full)

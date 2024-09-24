@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosta-c <rcosta-c@student.42porto.com>     +#+  +:+       +#+        */
+/*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:15:43 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/19 08:15:48 by rosta-c          ###   ########.fr       */
+/*   Updated: 2024/09/24 09:48:52 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,17 @@ static bool	checker_full(t_vars *philo, int *x)
 		return (true);
 	}
 	return (false);
+}
+bool	ft_checker_message(t_data *philo, char *str)
+{
+	pthread_mutex_lock(&philo->vars->sync);
+	if (philo->vars->philo_dead || philo->vars->philos_full)
+	{
+		pthread_mutex_unlock(&philo->vars->sync);
+		return (false);
+	}
+	printf("%lu %d %s\n", ft_time_ms() - philo->vars->start_time,
+		philo->philo_nbr, str);
+	pthread_mutex_unlock(&philo->vars->sync);
+	return (true);
 }

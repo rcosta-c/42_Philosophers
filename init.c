@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosta-c <rcosta-c@student.42porto.com>     +#+  +:+       +#+        */
+/*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:05:54 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/19 09:56:28 by rosta-c          ###   ########.fr       */
+/*   Updated: 2024/09/24 11:04:36 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static void	check_limits(t_vars *philo)
 		printf("Error\n. -> Nbr philos 1 - 200\n");
 		exit(EXIT_FAILURE);
 	}
-	if (philo->t_2die < 0 || philo->t_2die > INT_MAX)
+	if (philo->t_2die < 60 || philo->t_2die > INT_MAX)
 	{
 		printf("Error.\n Amout of time to die is wrong.\n");
 		exit (EXIT_FAILURE);
 	}
-	if (philo->t_2eat < 0 || philo->t_2eat > INT_MAX
-		|| philo->t_2sleep < 0 || philo->t_2sleep > INT_MAX)
+	if (philo->t_2eat < 60 || philo->t_2eat > INT_MAX
+		|| philo->t_2sleep < 60 || philo->t_2sleep > INT_MAX)
 	{
 		printf ("Error.\n Amout of time a philo takes to\
 			eat or sleep, is wrong.\n");
