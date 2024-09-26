@@ -39,7 +39,7 @@ static void	create_check_join(t_vars *philo)
 		i++;
 	}
 	i = 0;
-	while (i++ < nbr && ft_checker_philos(philo, &i) == false)
+	while (i++ < nbr && !ft_checker_philos(philo, &i))
 		i = i + 0;
 	i = 0;
 	while (i < nbr)
@@ -59,6 +59,8 @@ static void	destroyer(t_vars *philo)
 	while (i < nbr)
 	{
 		pthread_mutex_destroy(&philo->philosophers[i].l_fork);
+		pthread_mutex_destroy(philo->philosophers[i].r_fork);
 		i++;
 	}
+	pthread_mutex_destroy(&philo->sync);
 }

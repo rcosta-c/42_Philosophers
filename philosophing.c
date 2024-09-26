@@ -14,7 +14,8 @@
 
 static bool	ft_philo_eat(t_data *philo_x);
 static bool	ft_philo_sleep_think(t_data *philo_x);
-static bool	ft_check_fork(t_data *philo_x);
+static bool	ft_check_fork_even(t_data *philo_x);
+static bool	ft_check_fork_odd(t_data *philo_x);
 
 void	*philosophing(void *philo)
 {
@@ -25,10 +26,16 @@ void	*philosophing(void *philo)
 		ft_usleep(10);
 	while (1)
 	{
-		if (!ft_checker_full_death(philo_x))
-			break ;
-		if (!ft_check_fork(philo_x))
-			break ;
+		if (philo_x->philo_nbr % 2 == 0)
+		{
+			if (!ft_check_fork_even(philo_x))
+				break ;
+		}
+		else
+		{
+			if (!ft_check_fork_odd(philo_x))
+				break ;
+		}
 		ft_philo_eat(philo_x);
 		if (!ft_philo_sleep_think(philo_x))
 			break ;
@@ -36,7 +43,29 @@ void	*philosophing(void *philo)
 	return (NULL);
 }
 
-static bool	ft_check_fork(t_data *philo_x)
+static bool	ft_check_fork_even(t_data *philo_x)
+{
+	if (!ft_checker_full_death(philo_x))
+		return (false);
+	pthread_mutex_lock(philo_x->r_fork);
+	if (!ft_checker_message(philo_x, "has taken a fork"))
+	{
+		pthread_mutex_unlock(&philo_x->l_fork);
+		return (false);
+	}
+	if (!ft_checker_full_death(philo_x))
+		return (false);
+	pthread_mutex_lock(&philo_x->l_fork);
+	if (!ft_checker_message(philo_x, "has taken a fork"))
+	{
+		pthread_mutex_unlock(&philo_x->l_fork);
+		pthread_mutex_unlock(philo_x->r_fork);
+		return (false);
+	}
+	return (true);
+}
+
+static bool	ft_check_fork_odd(t_data *philo_x)
 {
 	if (!ft_checker_full_death(philo_x))
 		return (false);
@@ -87,4 +116,3 @@ static bool	ft_philo_sleep_think(t_data *philo_x)
 		return (false);
 	return (true);
 }
-

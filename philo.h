@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <unistd.h>
+# include <ctype.h>
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -59,8 +60,8 @@ bool		ft_checker_full_death(t_data *philo_x);
 /*init.c*/
 void		init_philo(t_vars *philo, int ac, char **av);
 /*checker.c*/
-bool	ft_checker_philos(t_vars *philo, int *x);
-bool	ft_checker_message(t_data *philo, char *str);
+bool		ft_checker_philos(t_vars *philo, int *x);
+bool		ft_checker_message(t_data *philo, char *str);
 /*philosophing.c*/
 void		*philosophing(void *philo);
 bool		ft_checker_philos(t_vars *philo, int *x);

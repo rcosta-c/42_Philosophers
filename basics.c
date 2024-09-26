@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <ctype.h>
 
 int	ft_atoi(const char *nptr)
 {
@@ -57,6 +56,7 @@ void	ft_usleep(uint64_t time)
 		usleep(150);
 	}
 }
+
 bool	ft_checker_full_death(t_data *philo_x)
 {
 	pthread_mutex_lock(&philo_x->vars->sync);

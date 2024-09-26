@@ -1,7 +1,9 @@
+##-g -O2 -pthread -pthread -fPIE -pie
+
 NAME := philo
 
-CC := cc
-CFLAGS := -Wall -Werror -Wextra -g
+CC := clang
+CFLAGS := -Wall -Werror -Wextra 
 
 SRCS := philo.c \
 		init.c \
