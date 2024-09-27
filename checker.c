@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:15:43 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/24 09:48:52 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:49:39 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	ft_checker_philos(t_vars *philo, int *x)
 static bool	checker_death(t_vars *philo, int *x)
 {
 	if (ft_time_ms() - philo->philosophers[*x].last_meal \
-	>= (unsigned long long)philo->t_2die)
+	> (unsigned long long)philo->t_2die)
 	{
 		philo->philo_dead = true;
 		printf ("%lu %d died\n", ft_time_ms() - philo->start_time, \

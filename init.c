@@ -6,24 +6,24 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:05:54 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/24 11:04:36 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/09/27 09:04:53 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	check_numbers(char **av);
-static void	check_limits(t_vars *philo);
+static int	check_numbers(char **av);
+static int	check_limits(t_vars *philo);
 static void	init_vars(t_vars *philo);
 static void	philos_start(t_vars *philo);
 
-void	init_philo(t_vars *philo, int ac, char **av)
+int	init_philo(t_vars *philo, int ac, char **av)
 {
 	memset (philo, 0, sizeof(t_vars));
 	if (ac != 5 && ac != 6)
 	{
 		printf("Error\n\nwrong number of args.\n");
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	check_numbers(av);
 	init_vars(philo);
@@ -37,6 +37,7 @@ void	init_philo(t_vars *philo, int ac, char **av)
 		philo->max_rounds = -1;
 	check_limits(philo);
 	philos_start(philo);
+	return (EXIT_SUCCESS);
 }
 
 static void	init_vars(t_vars *philo)
@@ -49,7 +50,7 @@ static void	init_vars(t_vars *philo)
 	philo->philosophers->meal_nbr = 0;
 }
 
-static void	check_numbers(char **av)
+static int	check_numbers(char **av)
 {
 	int	x;
 	int	z;
@@ -65,37 +66,39 @@ static void	check_numbers(char **av)
 			else
 			{
 				printf("Error.\nargs must be only numbers.\n");
-				exit(EXIT_FAILURE);
+				return (EXIT_FAILURE);
 			}
 		}
 		x++;
 	}
+	return (EXIT_SUCCESS);
 }
 
-static void	check_limits(t_vars *philo)
+static int	check_limits(t_vars *philo)
 {
 	if (philo->n_philos < 1 || philo->n_philos > 200)
 	{
 		printf("Error\n. -> Nbr philos 1 - 200\n");
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	if (philo->t_2die < 60 || philo->t_2die > INT_MAX)
 	{
 		printf("Error.\n Amout of time to die is wrong.\n");
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	if (philo->t_2eat < 60 || philo->t_2eat > INT_MAX
 		|| philo->t_2sleep < 60 || philo->t_2sleep > INT_MAX)
 	{
 		printf ("Error.\n Amout of time a philo takes to\
 			eat or sleep, is wrong.\n");
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	if (philo->max_rounds < -1 || philo->max_rounds > INT_MAX)
 	{
 		printf("Error.\n Amout of time philosophers must eat, is wrong.\n");
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
 
 static void	philos_start(t_vars *philo)

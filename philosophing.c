@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:15:33 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/24 09:54:40 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:53:02 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	ft_check_fork_even(t_data *philo_x)
 	pthread_mutex_lock(philo_x->r_fork);
 	if (!ft_checker_message(philo_x, "has taken a fork"))
 	{
-		pthread_mutex_unlock(&philo_x->l_fork);
+		pthread_mutex_unlock(philo_x->r_fork);
 		return (false);
 	}
 	if (!ft_checker_full_death(philo_x))
@@ -58,8 +58,8 @@ static bool	ft_check_fork_even(t_data *philo_x)
 	pthread_mutex_lock(&philo_x->l_fork);
 	if (!ft_checker_message(philo_x, "has taken a fork"))
 	{
-		pthread_mutex_unlock(&philo_x->l_fork);
 		pthread_mutex_unlock(philo_x->r_fork);
+		pthread_mutex_unlock(&philo_x->l_fork);
 		return (false);
 	}
 	return (true);

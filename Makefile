@@ -2,7 +2,7 @@
 
 NAME := philo
 
-CC := clang
+CC := gcc
 CFLAGS := -Wall -Werror -Wextra 
 
 SRCS := philo.c \
