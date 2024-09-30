@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:12 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/27 10:56:57 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:00:36 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_vars
 	int					how_many_r_full;
 	bool				philo_dead;
 	bool				philos_full;
+	bool				args_error;
 	struct s_data		philosophers[200];
 	uint64_t			start_time;
 	pthread_mutex_t		sync;
@@ -58,7 +59,7 @@ uint64_t	ft_time_ms(void);
 void		ft_usleep(uint64_t time);
 bool		ft_checker_full_death(t_data *philo_x);
 /*init.c*/
-int			init_philo(t_vars *philo, int ac, char **av);
+bool		init_philo(t_vars *philo, int ac, char **av);
 /*checker.c*/
 bool		ft_checker_philos(t_vars *philo, int *x);
 bool		ft_checker_message(t_data *philo, char *str);

@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:07 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/27 10:53:37 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:09:55 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int ac, char **av)
 {
 	t_vars	philo;
 
-	init_philo(&philo, ac, av);
+	if (init_philo(&philo, ac, av) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	create_check_join(&philo);
 	destroyer(&philo);
 	return (EXIT_SUCCESS);

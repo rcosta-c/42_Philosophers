@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:14 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/27 08:58:38 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:13:25 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,14 @@ int	ft_atoi(const char *nptr)
 	x = 0;
 	signal = 1;
 	reslt = 0;
-	while ((nptr[x] >= 9 && nptr[x] <= 13) || nptr[x] == 32)
-		x++;
-	if (nptr[x] == '-' || nptr[x] == '+')
-	{
-		if (nptr[x] == '-')
-			signal = -1;
-		x++;
-	}
-	while (nptr[x] >= 48 && nptr[x] <= 57)
+	while (nptr[x] >= '0' && nptr[x] <= '9')
 	{
 		reslt *= 10;
 		reslt += nptr[x] - 48;
 		x++;
 	}
+	if (reslt > INT32_MAX)
+		return (-99);
 	return (reslt * signal);
 }
 
