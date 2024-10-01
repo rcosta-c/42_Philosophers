@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:07 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/30 10:09:55 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:23:19 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ static void	create_check_join(t_vars *philo)
 	while (++i < nbr && !ft_checker_philos(philo, &i))
 		i = i + 0;
 	i = 0;
-	while (i++ < nbr)
+	while (i < nbr)
+	{
 		pthread_join(philo->philosophers[i].thread, NULL);
+		i++;
+	}
 }
 
 static void	destroyer(t_vars *philo)
@@ -57,8 +60,6 @@ static void	destroyer(t_vars *philo)
 	while (i < nbr)
 	{
 		pthread_mutex_destroy(&philo->philosophers[i].l_fork);
-		pthread_mutex_destroy(philo->philosophers[i].r_fork);
 		i++;
 	}
-	pthread_mutex_destroy(&philo->sync);
 }

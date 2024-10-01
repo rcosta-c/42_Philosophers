@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:14 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/30 11:13:25 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:12:49 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,3 @@ void	ft_usleep(uint64_t time)
 	}
 }
 
-bool	ft_checker_full_death(t_data *philo_x)
-{
-	pthread_mutex_lock(&philo_x->vars->sync);
-	if (philo_x->vars->philos_full)
-	{
-		pthread_mutex_unlock(&philo_x->vars->sync);
-		return (false);
-	}
-	if (philo_x->vars->philo_dead)
-	{
-		pthread_mutex_unlock(&philo_x->vars->sync);
-		return (false);
-	}
-	pthread_mutex_unlock(&philo_x->vars->sync);
-	return (true);
-}

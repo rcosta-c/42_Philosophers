@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:05:54 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/30 11:14:19 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:23:42 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void	philos_start(t_vars *philo)
 	int	x;
 
 	x = 0;
+	pthread_mutex_init(&philo->sync, NULL);
 	while (x < philo->n_philos)
 	{
 		philo->philosophers[x].philo_nbr = x + 1;

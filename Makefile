@@ -39,7 +39,7 @@ all: $(NAME)
 
 $(NAME): ${OBJS}
 	@echo "$(GREEN)Linux compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-	$(CC) -o $(NAME) $(OBJS) -pthread
+	$(CC) -o $(NAME) $(OBJS) -g -pthread -fsanitize=thread
 	@echo "$(GREEN)$(NAME) created ✔️"
 
 

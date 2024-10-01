@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:15:43 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/09/27 10:49:39 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:13:02 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 
 static bool	checker_death(t_vars *philo, int *x);
 static bool	checker_full(t_vars *philo, int *x);
+
+bool	ft_checker_full_death(t_data *philo_x)
+{
+	pthread_mutex_lock(&philo_x->vars->sync);
+	if (philo_x->vars->philos_full)
+	{
+		pthread_mutex_unlock(&philo_x->vars->sync);
+		return (false);
+	}
+	if (philo_x->vars->philo_dead)
+	{
+		pthread_mutex_unlock(&philo_x->vars->sync);
+		return (false);
+	}
+	pthread_mutex_unlock(&philo_x->vars->sync);
+	return (true);
+}
 
 bool	ft_checker_philos(t_vars *philo, int *x)
 {
