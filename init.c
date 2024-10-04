@@ -19,7 +19,6 @@ static void	philos_start(t_vars *philo);
 
 bool	init_philo(t_vars *philo, int ac, char **av)
 {
-	memset (philo, 0, sizeof(t_vars));
 	if (ac != 5 && ac != 6)
 	{
 		printf("Error.\nWrong number of args.\n");
@@ -38,6 +37,7 @@ bool	init_philo(t_vars *philo, int ac, char **av)
 		philo->max_rounds = -1;
 	if (check_limits(philo) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
+	pthread_mutex_init(&philo->sync, NULL);
 	philos_start(philo);
 	return (EXIT_SUCCESS);
 }
@@ -107,7 +107,6 @@ static void	philos_start(t_vars *philo)
 	int	x;
 
 	x = 0;
-	pthread_mutex_init(&philo->sync, NULL);
 	while (x < philo->n_philos)
 	{
 		philo->philosophers[x].philo_nbr = x + 1;

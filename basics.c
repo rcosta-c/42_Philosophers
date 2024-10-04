@@ -40,14 +40,28 @@ uint64_t	ft_time_ms(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	ft_usleep(uint64_t time)
+int	someone_dead(t_data *philo)
+{
+	pthread_mutex_lock(&philo->vars->sync);
+	if (philo->vars->philo_dead)
+	{
+		pthread_mutex_unlock(&philo->vars->sync);
+		return (EXIT_FAILURE);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->vars->sync);
+		return (EXIT_SUCCESS);
+	}
+}
+
+void	ft_usleep(uint64_t time, t_data *philo_x)
 {
 	uint64_t	now;
 
 	now = ft_time_ms();
-	while (ft_time_ms() - now < time)
+	while (ft_time_ms() - now < time && !someone_dead(philo_x))
 	{
 		usleep(150);
 	}
 }
-

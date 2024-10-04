@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <ctype.h>
+# include <stdint.h>
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -56,7 +57,8 @@ typedef struct s_vars
 /*basics.c*/
 int			ft_atoi(const char *nptr);
 uint64_t	ft_time_ms(void);
-void		ft_usleep(uint64_t time);
+int			someone_dead(t_data *philo);
+void		ft_usleep(uint64_t time, t_data *philo_x);
 bool		ft_checker_full_death(t_data *philo_x);
 /*init.c*/
 bool		init_philo(t_vars *philo, int ac, char **av);
@@ -65,5 +67,9 @@ bool		ft_checker_philos(t_vars *philo, int *x);
 bool		ft_checker_message(t_data *philo, char *str);
 /*philosophing.c*/
 void		*philosophing(void *philo);
+/*utils_philo.c*/
+void		ft_waitphilo(t_data *philo_x);
+void		ft_one_philo(t_data *philo_x);
+/*extras*/
 
 #endif

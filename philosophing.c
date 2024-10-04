@@ -6,7 +6,7 @@
 /*   By: rcosta-c <rcosta-c@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:15:33 by rosta-c           #+#    #+#             */
-/*   Updated: 2024/10/01 12:16:22 by rcosta-c         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:16:39 by rcosta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static bool	ft_philo_eat(t_data *philo_x);
 static bool	ft_philo_sleep_think(t_data *philo_x);
 static bool	ft_check_fork_even(t_data *philo_x);
 static bool	ft_check_fork_odd(t_data *philo_x);
-static void ft_waitphilo(t_data *philo_x);
 
 void	*philosophing(void *philo)
 {
@@ -28,8 +27,8 @@ void	*philosophing(void *philo)
 	{
 		if (philo_x->vars->n_philos == 1)
 		{
-			printf("0 1 has taken a fork\n");
-			break;
+			ft_one_philo(philo_x);
+			break ;
 		}
 		if (philo_x->philo_nbr % 2 == 0)
 		{
@@ -44,12 +43,6 @@ void	*philosophing(void *philo)
 			break ;
 	}
 	return (NULL);
-}
-
-static void ft_waitphilo(t_data *philo_x)
-{
-	if (!(philo_x->philo_nbr & 1))
-		ft_usleep(10);	
 }
 
 static bool	ft_check_fork_even(t_data *philo_x)
@@ -106,9 +99,7 @@ static bool	ft_philo_eat(t_data *philo_x)
 	pthread_mutex_unlock(&philo_x->vars->sync);
 	if (!ft_checker_message(philo_x, "is eating"))
 		return (false);
-	// ACRESCENTAR AQUI -> FUNCAO QUE FACA time_ms - philo->philosophers[*x].last_meal
-	// em todos os philos, se valido enta entra no usleep(ou se invalido faz break)
-	ft_usleep(philo_x->vars->t_2eat);
+	ft_usleep(philo_x->vars->t_2eat, philo_x);
 	pthread_mutex_lock(&philo_x->vars->sync);
 	if (philo_x->vars->max_rounds == philo_x->meal_nbr)
 	{
@@ -124,7 +115,7 @@ static bool	ft_philo_sleep_think(t_data *philo_x)
 {
 	if (!ft_checker_message(philo_x, "is sleeping"))
 		return (false);
-	ft_usleep(philo_x->vars->t_2sleep);
+	ft_usleep(philo_x->vars->t_2sleep, philo_x);
 	if (!ft_checker_message(philo_x, "is thinking"))
 		return (false);
 	return (true);

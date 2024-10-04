@@ -19,6 +19,7 @@ int	main(int ac, char **av)
 {
 	t_vars	philo;
 
+	memset (&philo, 0, sizeof(t_vars));
 	if (init_philo(&philo, ac, av) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	create_check_join(&philo);
@@ -48,6 +49,7 @@ static void	create_check_join(t_vars *philo)
 		pthread_join(philo->philosophers[i].thread, NULL);
 		i++;
 	}
+	i = 0;
 }
 
 static void	destroyer(t_vars *philo)
@@ -62,4 +64,5 @@ static void	destroyer(t_vars *philo)
 		pthread_mutex_destroy(&philo->philosophers[i].l_fork);
 		i++;
 	}
+	pthread_mutex_destroy(&philo->sync);
 }

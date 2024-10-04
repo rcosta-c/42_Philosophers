@@ -4,7 +4,7 @@
 
 NAME := philo
 
-CC := gcc
+CC := cc
 CFLAGS := -Wall -Werror -Wextra 
 
 SRCS := philo.c \
@@ -12,6 +12,7 @@ SRCS := philo.c \
 		basics.c \
 		checker.c \
 		philosophing.c \
+		utils_philo.c
 
 OBJS := $(SRCS:.c=.o)
 
@@ -39,7 +40,7 @@ all: $(NAME)
 
 $(NAME): ${OBJS}
 	@echo "$(GREEN)Linux compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-	$(CC) -o $(NAME) $(OBJS) -g -pthread -fsanitize=thread
+	$(CC) -o $(NAME) $(OBJS) -pthread -g -fsanitize=thread
 	@echo "$(GREEN)$(NAME) created ✔️"
 
 
